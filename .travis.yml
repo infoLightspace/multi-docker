@@ -3,20 +3,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+  - docker build -t lightspace001/react-test -f ./client/Dockerfile.dev
 
 script:
   - docker run react-test npm test -- --coverage
 
 after_success:
-   - docker build -t multi-client ./client
-   - docker build -t multi-nginx ./nginx
-   - docker build -t multi-server ./server
-   - docker build -t multi-worker ./worker
+   - docker build -t lightspace001/multi-client ./client
+   - docker build -t lightspace001/multi-nginx ./nginx
+   - docker build -t lightspace001/multi-server ./server
+   - docker build -t lightspace001/multi-worker ./worker
 
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-   - docker push multi-client
-   - docker push multi-nginx
-   - docker push multi-server
-   - docker push multi-worker
+   - docker push lightspace001/multi-client
+   - docker push lightspace001/multi-nginx
+   - docker push lightspace001/multi-server
+   - docker push lightspace001/multi-worker
